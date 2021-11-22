@@ -1,49 +1,65 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native'
 import { Input, Button } from 'react-native-elements';
-import { StackScreenProps } from '@react-navigation/stack';
-
-import { RootStackParamList } from '../../features/navigation/types';
 
 import useStates from './states';
 
-type Props = StackScreenProps<RootStackParamList, "Login">;
-
-const Login = ({ navigation }: Props) => {
+const Register = () => {
   const states = useStates();
   const {
+    name,
+    setName,
+
     email,
     setEmail,
 
     password,
     setPassword,
+
+    avatar,
+    setAvatar,
   } = states;
 
   return (
     <View style={styles.container}>
       <Input
         autoCompleteType
-        placeholder='Digite seu e-mail'
-        label='E-mail'
+        placeholder='Enter your name'
+        label='Name'
+        leftIcon={{ type: 'material', name: 'badge' }}
+
+        value={name}
+        onChangeText={text => setName(text)}
+      />
+      <Input
+        autoCompleteType
+        placeholder='Enter your email'
+        label='Email'
         leftIcon={{ type: 'material', name: 'email' }}
+
         value={email}
         onChangeText={text => setEmail(text)}
       />
       <Input
         autoCompleteType
-        placeholder='Digite sua senha'
-        label='Senha'
+        placeholder='Enter your password'
+        label='Password'
         leftIcon={{ type: 'material', name: 'lock' }}
-        value={password}
-        onChangeText={text => setPassword(text)}
+
+        value={password} onChangeText={text => setPassword(text)}
         secureTextEntry
       />
-      <Button title="Fazer Login" buttonStyle={styles.button} />
-      <Button
-        title="Cadastro"
-        buttonStyle={styles.button}
+      <Input
+        autoCompleteType
+        placeholder='Enter your image url'
+        label='Profile Picture'
+        leftIcon={{ type: 'material', name: 'face' }}
 
-        onPress={() => navigation.navigate("Register")}
+        value={avatar}
+        onChangeText={text => setAvatar(text)}
+      />
+      <Button
+        title="Cadastrar" style={styles.button}
       />
     </View>
   )
@@ -59,6 +75,5 @@ const styles = StyleSheet.create({
     width: 370,
     marginTop: 10
   }
-});
-
-export default Login;
+})
+export default Register;
