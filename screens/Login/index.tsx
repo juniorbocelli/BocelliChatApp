@@ -6,11 +6,14 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../../features/navigation/types';
 
 import useStates from './states';
+import useAPIs from './apis';
 
 type Props = StackScreenProps<RootStackParamList, "Login">;
 
 const Login = ({ navigation }: Props) => {
   const states = useStates();
+  const apis = useAPIs(states);
+
   const {
     email,
     setEmail,
@@ -38,7 +41,12 @@ const Login = ({ navigation }: Props) => {
         onChangeText={text => setPassword(text)}
         secureTextEntry
       />
-      <Button title="Fazer Login" buttonStyle={styles.button} />
+      <Button
+        title="Fazer Login"
+        buttonStyle={styles.button}
+
+        onPress={apis.signIn}
+      />
       <Button
         title="Cadastro"
         buttonStyle={styles.button}

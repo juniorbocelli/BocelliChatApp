@@ -22,7 +22,7 @@ export default function useAPIs(states: IUseStates): IUseAPIs {
         // ...
         user.updateProfile({
           displayName: name,
-          photoUrl: avatar ? avatar : "https://gravatar.com/avatar/94d45dbdba988afacf30d916e7aaad69?s=200&d=mp&r=x",
+          photoURL: avatar ? avatar : "https://gravatar.com/avatar/94d45dbdba988afacf30d916e7aaad69?s=200&d=mp&r=x",
         })
           .catch((error) => {
             alert(error.message)

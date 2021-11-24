@@ -3,9 +3,12 @@ import { View, StyleSheet } from 'react-native'
 import { Input, Button } from 'react-native-elements';
 
 import useStates from './states';
+import useAPIs from './apis';
 
 const Register = () => {
   const states = useStates();
+  const apis = useAPIs(states);
+
   const {
     name,
     setName,
@@ -60,6 +63,8 @@ const Register = () => {
       />
       <Button
         title="Cadastrar" style={styles.button}
+
+        onPress={apis.register}
       />
     </View>
   )

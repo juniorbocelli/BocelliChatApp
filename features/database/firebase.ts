@@ -1,6 +1,6 @@
-import * as firebase from 'firebase';
-import 'firebase/auth';
-import 'firebase/firestore';
+import firebase, { ReactNativeFirebase } from '@react-native-firebase/app';
+import { default as Auth } from '@react-native-firebase/auth';
+import '@react-native-firebase/app';
 
 const firebaseConfig = {
     apiKey: "AIzaSyD0cDBMd8K0zI6IaVeROpaJpa1LR13gQcc",
@@ -12,12 +12,12 @@ const firebaseConfig = {
     measurementId: "G-YW6Y446SJ4"
   };
 
-let app;
+let app: ReactNativeFirebase.FirebaseApp | Promise<ReactNativeFirebase.FirebaseApp>;
 if (firebase.apps.length === 0) {
     app = firebase.initializeApp(firebaseConfig);
 } else {
     app = firebase.app();
 }
-const db = app.firestore();
-const auth = firebase.auth();
-export { db, auth };
+const auth = Auth();
+
+export { auth };

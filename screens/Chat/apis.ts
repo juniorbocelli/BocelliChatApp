@@ -8,14 +8,8 @@ export interface IUseAPIs {
 
 export default function useAPIs(states: IUseStates): IUseAPIs {
   const signOut = () => {
-    const {
-      setUser,
-    } = states;
-
     auth.signOut().then(() => {
       // Sign-out successful.
-      setUser(undefined);
-      // navigation.replace("Login");
     }).catch((error) => {
       // An error happened.
     });

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "323949393212",
+    "project_id": "bocellichatapp",
+    "storage_bucket": "bocellichatapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323949393212:android:2e292c03d3c7e41d2ada39",
+        "android_client_info": {
+          "package_name": "com.bocellichatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323949393212-8ub3pt39h2qp7aaqdakme91ihnmoqppm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB89mKNtHNLIQdg17KySFXaYtxOt_q6eZ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323949393212-8ub3pt39h2qp7aaqdakme91ihnmoqppm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
