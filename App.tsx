@@ -8,15 +8,15 @@
 
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 
-import Route from './features/navigation/Route';
+import { AuthContextProvider } from './features/auth/context';
+import Router from './features/navigation/Router';
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Route />
-    </NavigationContainer>
+    <AuthContextProvider>
+      <Router />
+    </AuthContextProvider>
   );
 };
 

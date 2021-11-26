@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { GiftedChat, Message } from 'react-native-gifted-chat';
+import { GiftedChat } from 'react-native-gifted-chat';
 import { StackScreenProps } from '@react-navigation/stack';
 
 import { auth } from '../../features/database/firebase';
@@ -9,12 +9,14 @@ import { RootStackParamList } from '../../features/navigation/types';
 
 import useStates from './states';
 import useAPIs from './apis';
+import { useAuth } from '../../features/auth/context';
 
 type Props = StackScreenProps<RootStackParamList, "Chat">;
 
 const Chat = ({ navigation }: Props) => {
   const states = useStates();
   const apis = useAPIs(states);
+  const context = useAuth();
 
   const {
     messages,
@@ -37,7 +39,7 @@ const Chat = ({ navigation }: Props) => {
         <TouchableOpacity style={{
           marginRight: 10
         }}
-          onPress={apis.signOut}
+          onPress={context.signOut}
         >
           <Text>logout</Text>
         </TouchableOpacity>
@@ -48,8 +50,8 @@ const Chat = ({ navigation }: Props) => {
   React.useEffect(() => {
     setMessages([
       {
-        _id: 1,
-        text: 'Hello developer',
+        _id: context.user._id,
+        text: 'Olá, gostoso! Bengudo!',
         createdAt: new Date(),
         user: {
           _id: 2,
@@ -70,9 +72,9 @@ const Chat = ({ navigation }: Props) => {
       showAvatarForEveryMessage={true}
       onSend={messages => onSend(messages)}
       user={{
-        _id: auth?.currentUser?.email,
-        name: auth?.currentUser?.displayName,
-        avatar: auth?.currentUser?.photoURL
+        _id: context.user._id,
+        name: context.user.name,
+        avatar: context.user.avatar,
       }}
     />
   );

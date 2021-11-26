@@ -6,13 +6,13 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../../features/navigation/types';
 
 import useStates from './states';
-import useAPIs from './apis';
+import { useAuth } from '../../features/auth/context';
 
-type Props = StackScreenProps<RootStackParamList, "Login">;
+type ILoginProps = StackScreenProps<RootStackParamList, "Login">;
 
-const Login = ({ navigation }: Props) => {
+const Login = ({ navigation }: ILoginProps) => {
   const states = useStates();
-  const apis = useAPIs(states);
+  const context = useAuth();
 
   const {
     email,
@@ -45,7 +45,7 @@ const Login = ({ navigation }: Props) => {
         title="Fazer Login"
         buttonStyle={styles.button}
 
-        onPress={apis.signIn}
+        onPress={() => context.signIn(email, password)}
       />
       <Button
         title="Cadastro"

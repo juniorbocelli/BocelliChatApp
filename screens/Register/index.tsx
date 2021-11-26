@@ -3,11 +3,11 @@ import { View, StyleSheet } from 'react-native'
 import { Input, Button } from 'react-native-elements';
 
 import useStates from './states';
-import useAPIs from './apis';
+import { useAuth } from '../../features/auth/context';
 
 const Register = () => {
   const states = useStates();
-  const apis = useAPIs(states);
+  const context = useAuth();
 
   const {
     name,
@@ -27,7 +27,7 @@ const Register = () => {
     <View style={styles.container}>
       <Input
         autoCompleteType
-        placeholder='Enter your name'
+        placeholder='Digite seu nome'
         label='Name'
         leftIcon={{ type: 'material', name: 'badge' }}
 
@@ -36,7 +36,7 @@ const Register = () => {
       />
       <Input
         autoCompleteType
-        placeholder='Enter your email'
+        placeholder='Digite seu e-mail'
         label='Email'
         leftIcon={{ type: 'material', name: 'email' }}
 
@@ -45,7 +45,7 @@ const Register = () => {
       />
       <Input
         autoCompleteType
-        placeholder='Enter your password'
+        placeholder='Digite sua senha'
         label='Password'
         leftIcon={{ type: 'material', name: 'lock' }}
 
@@ -54,7 +54,7 @@ const Register = () => {
       />
       <Input
         autoCompleteType
-        placeholder='Enter your image url'
+        placeholder='Digite a URL da sua imagem de avatar'
         label='Profile Picture'
         leftIcon={{ type: 'material', name: 'face' }}
 
@@ -64,7 +64,7 @@ const Register = () => {
       <Button
         title="Cadastrar" style={styles.button}
 
-        onPress={apis.register}
+        onPress={() => context.register(email, password, name, avatar)}
       />
     </View>
   )
