@@ -29,23 +29,32 @@ const Login = ({ navigation }: ILoginProps) => {
         placeholder='Digite seu e-mail'
         label='E-mail'
         leftIcon={{ type: 'material', name: 'email' }}
+
         value={email}
         onChangeText={text => setEmail(text)}
+
+        autoCapitalize="none"
+        autoCorrect={false}
+        autoFocus={true}
       />
       <Input
         autoCompleteType
         placeholder='Digite sua senha'
         label='Senha'
         leftIcon={{ type: 'material', name: 'lock' }}
+
         value={password}
         onChangeText={text => setPassword(text)}
+
         secureTextEntry
+        autoCapitalize="none"
+        autoCorrect={false}
       />
       <Button
         title="Fazer Login"
         buttonStyle={styles.button}
 
-        onPress={() => context.signIn(email, password)}
+        onPress={() => context.signIn(email.trim(), password.trim())}
       />
       <Button
         title="Cadastro"

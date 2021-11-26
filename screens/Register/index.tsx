@@ -28,11 +28,13 @@ const Register = () => {
       <Input
         autoCompleteType
         placeholder='Digite seu nome'
-        label='Name'
+        label='Nome'
         leftIcon={{ type: 'material', name: 'badge' }}
 
         value={name}
         onChangeText={text => setName(text)}
+
+        autoFocus={true}
       />
       <Input
         autoCompleteType
@@ -42,6 +44,9 @@ const Register = () => {
 
         value={email}
         onChangeText={text => setEmail(text)}
+
+        autoCapitalize="none"
+        autoCorrect={false}
       />
       <Input
         autoCompleteType
@@ -51,6 +56,9 @@ const Register = () => {
 
         value={password} onChangeText={text => setPassword(text)}
         secureTextEntry
+
+        autoCapitalize="none"
+        autoCorrect={false}
       />
       <Input
         autoCompleteType
@@ -60,11 +68,14 @@ const Register = () => {
 
         value={avatar}
         onChangeText={text => setAvatar(text)}
+
+        autoCapitalize="none"
+        autoCorrect={false}
       />
       <Button
         title="Cadastrar" style={styles.button}
 
-        onPress={() => context.register(email, password, name, avatar)}
+        onPress={() => context.register(email.trim(), password.trim(), name.trim(), avatar.trim())}
       />
     </View>
   )
