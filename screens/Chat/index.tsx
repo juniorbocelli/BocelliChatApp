@@ -48,35 +48,39 @@ const Chat = ({ navigation }: Props) => {
   }, [navigation]);
 
   React.useEffect(() => {
-    setMessages([
-      {
-        _id: context.user._id,
-        text: 'Olá, gostoso! Bengudo!',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
+    if (typeof (context.user) !== "undefined")
+      setMessages([
+        {
+          _id: context.user._id,
+          text: 'Olá, gostoso! Bengudo!',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
         },
-      },
-    ])
-  }, []);
+      ])
+  }, [context.user]);
 
   const onSend = React.useCallback((messages = []) => {
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
   }, []);
 
   return (
-    <GiftedChat
-      messages={messages}
-      showAvatarForEveryMessage={true}
-      onSend={messages => onSend(messages)}
-      user={{
-        _id: context.user._id,
-        name: context.user.name,
-        avatar: context.user.avatar,
-      }}
-    />
+    typeof (context.user) !== "undefined" ?
+      <GiftedChat
+        messages={messages}
+        showAvatarForEveryMessage={true}
+        onSend={messages => onSend(messages)}
+        user={{
+          _id: context.user._id,
+          name: context.user.name,
+          avatar: context.user.avatar,
+        }}
+      />
+      :
+      null
   );
 };
 
