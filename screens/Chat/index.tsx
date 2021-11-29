@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, IMessage } from 'react-native-gifted-chat';
 import { StackScreenProps } from '@react-navigation/stack';
 
 import { auth } from '../../features/database/firebase';
@@ -10,18 +10,24 @@ import { RootStackParamList } from '../../features/navigation/types';
 import useStates from './states';
 import useAPIs from './apis';
 import { useAuth } from '../../features/auth/context';
+import useEffects from './effects';
 
 type Props = StackScreenProps<RootStackParamList, "Chat">;
 
 const Chat = ({ navigation }: Props) => {
   const states = useStates();
   const apis = useAPIs(states);
+  const effects = useEffects(apis);
   const context = useAuth();
 
   const {
     messages,
     setMessages,
   } = states;
+
+  // Load previous messages
+  effects.useComponentDidMount();
+  effects.useSendAdminMessageComponentDidMount(context.user, setMessages);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -47,24 +53,10 @@ const Chat = ({ navigation }: Props) => {
     });
   }, [navigation]);
 
-  React.useEffect(() => {
-    if (typeof (context.user) !== "undefined")
-      setMessages([
-        {
-          _id: context.user._id,
-          text: 'Olá, gostoso! Bengudo!',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-      ])
-  }, [context.user]);
+  const onSend = React.useCallback((messages: Array<IMessage> = []) => {
+    setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
 
-  const onSend = React.useCallback((messages = []) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    apis.addMessage(messages[0])
   }, []);
 
   return (
